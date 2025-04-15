@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   <style>
+    :root{
+        --primary-color:rgb(23, 23, 182);
+    }
+    .container{
+        border: 1px solid var(--primary-color);
+        width: 30pc;
+        height: 32pc;
+        background-color: var(--primary-color);
+        margin: 20px auto;
+        z-index: -3;
+    }
+    
+    .boxes{
+        display: grid;
+grid-template-columns: repeat(3,auto);
+grid-template-rows: repeat(3,auto);
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        
+    }
+    .box{
+        border: 1px groove #fff;
+        height: 8pc;
+        width: 8pc;
+      border-collapse: collapse;
+      background-color: darkblue;
+      color: #fff;
+      text-align: center;
+      font-size: 100px;
+      cursor: pointer;
+    }
+    .box:active{
+        background-color: skyblue;
+    }
+    .score-board{
+color: #fff;
+        margin: 2pc;
+        padding: 0.3pc;
+        display: grid;
+        grid-template-columns: repeat(2,auto);
+        justify-content: space-between;
+    }
+    .score-board div{
+        display: grid;
+        grid-template-rows: repeat(2,auto);
+    }
+.main-heading{
+        margin: 0 auto;
+        text-align: center;
+background-color: var(--primary-color);
+color: white;
+padding: 5px;
+border-bottom: 2px solid;
+border-collapse: collapse;
+    }
+    select{
+        margin: 0.3pc auto;
+        text-align: center;
+        outline:none;
+        border: 2px ridge var(--primary-color);
+        background-color: var(--primary-color);
+        color: #fff;
+     padding: 15px;
+    }
+    select option{
+        background-color: white;
+        color: rgb(23, 23, 182);
+    }
+    .my-modal{
+        padding: 10px;
+        width: 234px;
+        margin-top: 18pc;
+        border: 1pc ridge var(--primary-color);
+    }
+    .pop-up{
+        border: 2px solid var(--primary-color);
+        width: 200px;
+        display: grid;
+        text-align: center;
+        padding: 15px;
+        grid-template-rows: 3pc auto;
+        margin: 0pc auto;
+        color: var(--primary-color);
+
+    }
+    .pop-up button{
+        color: white;
+        background-color: var(--primary-color);
+        border: 2px ridge;
+        padding: 6px;
+    }
+    .pop-up button:hover{
+        transform: translateY(4px);
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    .pop-up button:active{
+        color: var(--primary-color);
+        background-color: #fff;
+        transition: none;
+    }
+   </style>
+</head>
+<body>
+    <div class="main-heading"><h1>Tic-Tac-Toe Game</h1>
+        <em>Are you X or O,Pick a side and lets go!!</em><br>
+        <strong>This program was desinged by<i><b><em><u>Lord Dianson</u></em></b></i></strong>
+    </div>
+    <dialog class="my-modal">
+    <form method="dialog" class="pop-up" ><span>Player one wins</span><button type="submit" >OK</button></form>
+    </dialog>
+    <div class="options">
+        <select name="" id="">
+            <option value="">--- Select whom to play with ? ---</option>
+            <option value="Computer">You(X) Vs Computer(O)</option>
+            <option value="man">One(X) on One(O)</option>
+        </select>
+    </div>
+    <div class="container">
+        <div class="score-board">
+            <div>
+            <span>Player 1: <span class="one">0</span></span>
+            <span>X</span>
+            </div>
+            <div>
+            <span>Player 2: <span class="two">0</span></span>
+            <span>O</span>
+            </div>
+        </div>
+        <div class="boxes">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        </div>
+    <script>
+        const boxes = document.querySelectorAll('.box');
+        const modal = document.querySelector('.my-modal');
+        const modalText = document.querySelector('.pop-up span');
+        const player1Score = document.querySelector('.one');
+        const player2Score = document.querySelector('.two');
+        let userOptions = document.querySelector('select');
+        let playerRound = 1,player1 = 0,player2 = 0,numberOfUnclickedSquares = 9;
+       
+        boxes.forEach((box) =>{
+box.onclick = () => {
+    if(userOptions.value == ""){
+        modalText.textContent = "Please select whom to play with";
+        modal.showModal();
+    }
+}
+        });
+userOptions.addEventListener("change",() =>{
+switch(userOptions.value){
+    case "Computer":
+    boxes.forEach((box,i) =>{
+        box.onclick = ()=>{
+            numberOfUnclickedSquares--;
+            if( box.textContent == "" && playerRound === 1){
+box.textContent = "X";
+playerRound++;
+validate();
+            }
+          if(playerRound === 2){
+                let O = Math.floor(Math.random()*7) + 1;
+                for(let i = 0;i<1;i++){
+                    if(boxes[O].textContent == ""){
+                        boxes[O].textContent = "O";
+                        
+                    }
+                    else if(boxes[O].textContent !== ""){
+                        i--;
+                    }
+                    validate();
+                }
+playerRound--;
+            }
+        else if(box.textContent === "X" || box.textContent === "O"){
+                modalText.textContent = "Occupied!!, Please click on another box";
+        modal.showModal();
+            }
+        }
+    });
+
+    break;
+    case "man":
+    boxes.forEach((box,i) =>{
+        box.onclick = ()=>{
+            numberOfUnclickedSquares--;
+            if( box.textContent == "" && playerRound === 1){
+box.textContent = "X";
+playerRound++;
+            }
+            else if( box.textContent == "" && playerRound === 2){
+box.textContent = "O";
+playerRound--;
+            }
+            else if(box.textContent === "X" || box.textContent === "O"){
+                modalText.textContent = "Occupied!!, Please click on another box";
+                modal.showModal();
+            }
+            validate();
+        }
+    });
+    break;
+}
+});
+
+        // Validating functions
+        function horizontalValidation(boxes){
+            if(boxes[0].textContent === "X" && boxes[1].textContent === "X" && boxes[2].textContent === "X"){
+return "Player1";
+            }
+        else if(boxes[3].textContent === "X" && boxes[4].textContent === "X" && boxes[5].textContent === "X"){
+return "Player1";
+            }
+        else  if(boxes[6].textContent === "X" && boxes[7].textContent === "X" && boxes[8].textContent === "X"){
+return "Player1";
+            }
+            if(boxes[0].textContent === "O" && boxes[1].textContent === "O" && boxes[2].textContent === "O"){
+return "Player2";
+            }
+        else if(boxes[3].textContent === "O" && boxes[4].textContent === "O" && boxes[5].textContent === "O"){
+return "Player2";
+                            }
+        else  if(boxes[6].textContent === "O" && boxes[7].textContent === "O" && boxes[8].textContent === "O"){
+return "Player2";
+            }
+        }
+
+        function verticalValidation(boxes){
+            if(boxes[0].textContent === "X" && boxes[3].textContent === "X" && boxes[6].textContent === "X"){
+                return "Player1";
+                            }
+                        else if(boxes[1].textContent === "X" && boxes[4].textContent === "X" && boxes[7].textContent === "X"){
+                return "Player1";
+                            }
+                        else  if(boxes[2].textContent === "X" && boxes[5].textContent === "X" && boxes[8].textContent === "X"){
+                return "Player1";
+                            }
+                            if(boxes[0].textContent === "O" && boxes[3].textContent === "O" && boxes[6].textContent === "O"){
+                return "Player2";
+                            }
+                        else if(boxes[1].textContent === "O" && boxes[4].textContent === "O" && boxes[7].textContent === "O"){
+                return "Player2";
+                                            }
+                        else  if(boxes[2].textContent === "O" && boxes[5].textContent === "O" && boxes[8].textContent === "O"){
+                return "Player2";
+                            }
+        }
+
+        function diagonalValidation(boxes){
+            if(boxes[0].textContent === "X" && boxes[4].textContent === "X" && boxes[8].textContent === "X"){
+                return "Player1";
+                            }
+                        else if(boxes[2].textContent === "X" && boxes[4].textContent === "X" && boxes[6].textContent === "X"){
+                return "Player1";
+                            } 
+            if(boxes[0].textContent === "O" && boxes[4].textContent === "O" && boxes[8].textContent === "O"){
+                return "Player2";
+                            }
+                        else if(boxes[2].textContent === "O" && boxes[4].textContent === "O" && boxes[6].textContent === "O"){
+                return "Player2";
+                                                            }   
+        }
+        function validate(){
+            if(horizontalValidation(boxes) === "Player1"){
+                player1++;
+                modalText.textContent = "Player one wins!!";
+        modal.showModal();
+                player1Score.textContent = player1;
+        reset(boxes);
+            }
+            else if(horizontalValidation(boxes) === "Player2"){
+                player2++;
+                modalText.textContent = "Player two wins!!";
+        modal.showModal();
+                player2Score.textContent = player2;
+                reset(boxes);
+            }
+            if(verticalValidation(boxes) === "Player1"){
+                player1++;
+                modalText.textContent = "Player one wins!!";
+        modal.showModal();
+                player1Score.textContent = player1;
+        reset(boxes);
+            }
+            else if(verticalValidation(boxes) === "Player2"){
+                player2++;
+                modalText.textContent = "Player two wins!!";
+        modal.showModal();
+                player2Score.textContent = player2;
+                reset(boxes);
+            }
+            if(diagonalValidation(boxes) === "Player1"){
+                player1++;
+                modalText.textContent = "Player one wins!!";
+        modal.showModal();
+                player1Score.textContent = player1;
+        reset(boxes);
+            }
+            else if(diagonalValidation(boxes) === "Player2"){
+                player2++;
+                modalText.textContent = "Player two wins!!";
+        modal.showModal();
+                player2Score.textContent = player2;
+                reset(boxes);
+            }
+
+            if(numberOfUnclickedSquares === 0){
+                modalText.textContent = "It's a tie!!, no one gets a point!!";
+        modal.showModal();
+                reset(boxes);
+            }
+        }
+
+        function reset(boxes){
+            for(let j=0;j<boxes.length;j++){
+                boxes[j].textContent = "";
+            }
+            numberOfUnclickedSquares = 9;
+            playerRound = 1;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base converter</title>
+    <style>
+        /*css styling for converter from base ten*/
+    .converter{
+            background-color: rgba(128,128,128,0.6);
+            width: 90vw;
+            margin: 0 auto;
+            height: auto;
+            z-index: 0;
+            display: none;
+        }
+main{
+    text-align: center;
+    margin-top: 3pc;
+    color: #fff;
+}
+select{
+    width: 15pc;
+    height: 1.5pc;
+    margin-bottom: 2pc;
+}
+select option:first-of-type{
+    text-align: center;
+}
+header{
+    text-align: center;
+    color: #ffffff;
+    background:linear-gradient(rgb(243, 109, 131) 50%,pink,rgb(236, 117, 137) 50%);
+    padding-bottom: 0.1pc;
+    padding-top: 3px;
+    border-bottom: 2px ridge ;
+}
+input{
+    margin: 1pc;
+    outline: none;
+    width: 15pc;
+background-color:rgba(128,128,128,0.01); 
+border: none;
+border-bottom: 2px solid #fff;
+}
+input[type="submit"]{
+    width: 200px;
+    height: 1.9pc;
+    color: #deeeed;
+    background:linear-gradient(rgb(243, 109, 131) 50%,pink,rgb(236, 117, 137) 50%);
+    border: 2px ridge ;
+}
+input[type="submit"]:hover{
+    background:linear-gradient(rgb(240, 157, 171),rgba(230, 161, 172));
+    cursor: pointer;
+}
+input[type="submit"]:active{
+    background-color: #deeeed;
+    color: rgb(236, 117, 137);
+}
+fieldset{
+    padding: 2pc;
+    font-size: larger;
+}
+table{
+    border:1px solid #fff;
+    border-collapse: collapse;
+    th{
+        border: 1px solid #fff;
+        width: 1pc;
+        color: rgb(236, 117, 137);
+    }
+    tr{
+        border: 1px solid #fff;
+        
+    }
+    td{
+        border: 1px solid #fff;
+        width: 1pc;
+    }
+}
+
+#range-alert{
+    width: 150px;
+    height: auto;
+    margin: 1pc auto;
+    color: white;
+    display: none;
+}
+
+/*end styling*/
+/*css styling for converter from any base to base 10*/
+.to-base-10{
+    background-color: rgba(128,128,128,0.6);
+    width: 90vw;
+    margin: 0 auto;
+    height: auto;
+    z-index: 1;
+    position: absolute;
+    top: 2pc;
+    left: 3.8pc;
+    display: none;
+}
+.to-base-10 main{
+    width: 30pc;
+    margin: 0 auto;
+}
+.to-base-10 #working{
+    width: 18pc;
+    height: auto;
+    margin:0.5pc auto;
+    text-align: center;
+    display: none;
+}
+.to-base-10 table{
+        border: none;
+        width:3pc ;
+        height: 3pc;
+        color: white;
+        margin: 0 auto;
+        height: auto;
+        th{
+            color: #fff;
+            border: none;
+        }
+        tr{
+            border: none;
+        }
+        td{
+            border: none;
+            padding: 10px;
+        }
+}
+/*end styling*/
+/*begin styling for introductory page*/
+.intro{
+    background-color: rgba(128,128,128,0.6);
+    width: 90vw;
+    margin: 0 auto;
+    height: 20pc;
+    text-align: center;
+    color: #fff;
+    z-index: 2;
+    position: absolute;
+    top: 1.3pc;
+    left: 4.2pc;
+    
+}
+.choices{
+    width: 27pc;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3,auto);
+}
+ button{
+    color: #fff;
+    background:linear-gradient(rgb(243, 109, 131) 50%,pink,rgb(236, 117, 137) 50%);
+    border: 2px ridge ;
+    
+}
+ button:hover{
+    background:linear-gradient(rgb(240, 157, 171),rgba(230, 161, 172));
+    cursor: pointer;
+}
+ button:active{
+    background-color: #deeeed;
+    color: rgb(236, 117, 137);
+}
+.go-back-btn{
+    height: 2pc;
+    width: 6pc;
+    padding: 15px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    justify-self: flex-end;
+    margin: 0.3pc;
+    border: 0.2pc ridge;
+    background: linear-gradient(rgb(243, 109, 131) 40%,lightgray);
+}
+@media (max-width:768px) {
+    body{
+        font-size: smaller;
+    }
+    .to-base-10{
+        width: 27pc;
+        
+    }
+    .to-base-10 fieldset{
+        width: 22.4pc;
+    }
+    .choices{
+display: grid;
+grid-template-rows: repeat(3,auto);
+grid-template-columns: none;
+}
+.choices button{
+    height: 2pc;
+    width: 20pc;
+    margin: 0 auto;
+}
+.intro{
+    width: 26.5pc;
+}
+}
+    </style>
+</head>
+<body>
+    <!--Start html for converter from base 10 to any other base-->
+    <div class="converter">
+    <header><button class="go-back-btn" >Previous</button><h1>BASE CONVERTER</h1><h3>Convert your base 10 integers to the base you want in 8-bits format</h3></header>
+    <main>
+        <select name="Base value" id="Base">
+            <option value="">--- Select base number ---</option>
+            <option value="2">base 2</option>
+            <option value="3">base 3</option>
+            <option value="4">base 4</option>
+            <option value="5">base 5</option>
+            <option value="6">base 6</option>
+            <option value="7">base 7</option>
+            <option value="8">base 8</option>
+            <option value="9">base 9</option>
+            <option value="16">base 16</option>
+        </select><br>
+    <input required placeholder="Enter base 10 number" type="number" name="Base 10" id="Base-10"><br>
+    <input type="submit" name="converter" value="Convert" id="Convert"><br>
+    <div class="" id="range-alert"></div>
+    <fieldset><legend>Your answer goes in here</legend>
+    <output id="answer"></output>
+    </fieldset>
+    </main>
+    </div>
+    <!--End html for converter from base 10 to any other base-->
+<!--Start html for converter from any other base to base 10-->
+    <div class="to-base-10">
+        <header><button class="go-back-btn" >Previous</button><h1>BASE CONVERTER</h1><h3>Convert any base integer in any number of bits to base 10</h3></header>
+        <main>
+<input required type="text" placeholder="Enter number you wish to convert" name="" id="user-input"><br>
+<input required type="number" placeholder="Enter it's current base" id="current-base"><br>
+<input type="submit" name="" id="convert-to-ten" value="Convert">
+<div id="working">
+    <table id="working-display">
+        
+    </table>
+</div>
+<fieldset><Legend>Your answer goes in here</Legend>
+    <div id="answer-text"></div>
+</fieldset>
+        </main>
+    </div>
+<!--End html for converter from any other base to base 10-->
+<!--Start html for introductory page display-->
+    <div class="intro">
+        <header> <h1>WELCOME TO OUR BASE CONVERTER</h1>  
+            <h3>This program converts base 10 integers to 8-bit of any other base<br> and as well Converts any base integer to base 10</h3>
+            </header>
+            <p>So which of the below would you like to do or try first</p>
+        <div class="choices">
+            <button id="from-10">Change from base 10</button> <b>OR</b>
+            <button id="to-10" >Change to base 10</button>
+        </div>
+        <aside>This program was made by <strong><u>Lord Dianson</u></strong></aside>
+    </div>
+    <!--End html for introductory page display-->
+    <script>
+        //variables holding each page
+        const toBaseTenPage = document.querySelector('.to-base-10');
+        const fromBaseTenPage = document.querySelector('.converter');
+        const introPage = document.querySelector('.intro');
+        //end page variables declaration
+        /*variable declaration for from base 10 conversion page*/
+const base = document.querySelector("#Base");
+const baseTen = document.querySelector("#Base-10");
+const convertBtn = document.querySelector("#Convert");//
+const Alert = document.querySelector("#range-alert");
+const answer = document.querySelector("#answer");
+//variable declarations and eventlistener for introductroy page
+const goToIntroductoryPageBtn = document.querySelectorAll('.go-back-btn');
+const fromBaseTenBtn = document.querySelector('#from-10');
+const toBaseTenBtn = document.querySelector('#to-10');
+toBaseTenBtn.addEventListener('click',() => {
+    toBaseTenPage.style.display = 'block';
+    introPage.style.display = 'none';
+    });
+    fromBaseTenBtn.addEventListener('click',() => {
+        fromBaseTenPage.style.display = 'block';
+        introPage.style.display = 'none';
+        });
+        goToIntroductoryPageBtn[0].addEventListener('click',() => {
+            fromBaseTenPage.style.display = 'none';
+            toBaseTenPage.style.display = 'none';
+            introPage.style.display = 'block';
+        });
+        goToIntroductoryPageBtn[1].addEventListener('click',() => {
+            fromBaseTenPage.style.display = 'none';
+            toBaseTenPage.style.display = 'none';
+            introPage.style.display = 'block';
+        });
+//end introductroy page variable declarations
+
+// event listener to for converting from base 10
+
+convertBtn.addEventListener('click', () => {
+     //initializing variables to hold quotient and remainder for each bit number.
+var remainders = [];
+let quotients = [];
+/*-----------end variable declaration---------*/
+    let maxNum = Math.pow(base.value,8)-1;
+    if(base.value === ""){
+        alert("Please select a base number from the list");
+        return 0;
+    }
+    else if(baseTen.value == ""){
+        alert("Please input the number you wish to convert");
+return 0;
+    }
+    if(base.value === 10){
+        alert("Please select a base number from the list");
+    }
+   if(baseTen.value > maxNum){
+        alert(`Please your entry should be between 0 and ${maxNum} for base ${base.value}`);
+    }
+   
+    quotients[0] = Math.floor(baseTen.value / base.value);
+    remainders[0] = baseTen.value % base.value;
+            for(let i=0; i < 7 ;i++){
+                quotients[i+1] = Math.floor(quotients[i]/base.value);
+                remainders[i+1] = quotients[i] % base.value;
+            }
+            remainders.reverse();
+            if(base.value == 16 ){
+                for( i = 0;i<remainders.length;i++){
+                    switch(remainders[i]){
+                       case 10:
+                       remainders[i] = "A";
+                       break;
+                       case 11:
+                       remainders[i] = "B"; 
+                       break;
+                       case 12:
+                       remainders[i] = "C"; 
+                       break;
+                       case 13:
+                       remainders[i] = "D"; 
+                       break;
+                       case 14:
+                       remainders[i] = "E"; 
+                       break;
+                       case 15:
+                       remainders[i] = "F"; 
+                       break;
+                    }
+                }
+                }
+        answer.innerHTML = `<p>${baseTen.value}<sub>10</sub>  =  <u>${remainders.join("")}<sub>${base.value}</sub></u></p>`;
+        Alert.style.display = 'grid';
+        Alert.style.gridTemplateColumns = 'repeat(3,auto)';
+        Alert.innerHTML = `     <table>
+            <thead>
+<tr><th>${base.value}</th><th>${baseTen.value}</th><th>R</th></tr>
+            </thead>
+            <tbody>
+<tr><td>${base.value}</td><td>${quotients[0]}</td><td>${remainders[7]}</td></tr>
+<tr><td>${base.value}</td><td>${quotients[1]}</td><td>${remainders[6]}</td></tr>
+<tr><td>${base.value}</td><td>${quotients[2]}</td><td>${remainders[5]}</td></tr>
+<tr><td>${base.value}</td><td>${quotients[3]}</td><td>${remainders[4]}</td></tr>
+<tr><td>${base.value}</td><td>${quotients[4]}</td><td>${remainders[3]}</td></tr>
+<tr><td>${base.value}</td><td>${quotients[5]}</td><td>${remainders[2]}</td></tr>
+<tr><td>${base.value}</td><td>${quotients[6]}</td><td>${remainders[1]}</td></tr>
+<tr><td>${base.value}</td><td>${quotients[7]}</td><td>${remainders[0]}</td></tr>
+
+            </tbody>
+        </table>`;
+});
+//End event listener for converting  from base 10
+//variable declaration for converting to base 10
+const userInput = document.querySelector('#user-input');
+const inputBaseNumber = document.querySelector('#current-base');
+const displayWorking = document.querySelector('#working');
+const tabularWorkingDisplay = document.querySelector('#working-display');
+const answerText = document.querySelector('#answer-text');
+const convertToTenBtn = document.querySelector('#convert-to-ten');
+let decimalOutput,final = 0,newValue = [],j=0;
+//functions for converting to base 10
+function reset(){
+    decimalOutput = 0;
+    final = 0;
+    j=0;
+    i=0;
+}
+//event listener for converting to base 10
+convertToTenBtn.addEventListener('click',() => {
+    if(userInput.value === ""){
+        alert("Please input the number you wish to convert");
+        answerText.textContent = " ";
+        displayWorking.style.display = 'none';
+        return 0;
+    }
+    if(inputBaseNumber.value == ""){
+        alert("Sorry, cannot compute without the base of your input");
+        answerText.textContent = " ";
+        displayWorking.style.display = 'none';
+        return 0;
+    }
+    if(inputBaseNumber.value <2 || inputBaseNumber.value > 16){
+        alert("Your base inputs should be between base 2 and base 9 including base 16");
+        answerText.textContent = " ";
+        displayWorking.style.display = 'none';
+        return 0;
+    }
+    if( inputBaseNumber.value == 11 || inputBaseNumber.value == 12 || inputBaseNumber.value == 13 || inputBaseNumber.value == 14 || inputBaseNumber.value == 15){
+        alert("Sorry we donot work with bases between 11 and 15");
+        answerText.textContent = " ";
+        displayWorking.style.display = 'none';
+        return 0;
+    }
+    tabularWorkingDisplay.innerHTML = '';
+    displayWorking.style.display = 'block';
+    newValue = `${userInput.value}`;
+    for(let k=0;k<newValue.length;k++){
+        if(Number(newValue[k]) >= inputBaseNumber.value){
+            alert(`Sorry, base ${inputBaseNumber.value} is not the appropriate base for your input`);
+            answerText.textContent = " ";
+            displayWorking.style.display = 'none';
+            return 0;
+        }
+    }
+    for(let a=newValue.length-1;a>=0;a--){
+decimalOutput = Number(newValue[a]) * Math.pow(inputBaseNumber.value,j);
+if(inputBaseNumber.value == 16){
+    switch(newValue[a]){
+        case "A":
+        decimalOutput = 10 * Math.pow(inputBaseNumber.value,j);
+        break;
+        case "B":
+        decimalOutput = 11 * Math.pow(inputBaseNumber.value,j);
+        break;
+        case "C":
+        decimalOutput = 12 * Math.pow(inputBaseNumber.value,j);
+        break;
+        case "D":
+        decimalOutput = 13 * Math.pow(inputBaseNumber.value,j);
+        break;
+        case "E":
+        decimalOutput = 14 * Math.pow(inputBaseNumber.value,j);
+        break;
+        case "F":
+        decimalOutput = 15 * Math.pow(inputBaseNumber.value,j);
+        break;
+    }
+}
+final += decimalOutput;
+let interpolation = `<tr><td>${inputBaseNumber.value}<sup>${j}</sup></td><td>X</td><td>${newValue[a]}</td><td>=</td><td>${decimalOutput}</td></tr>`;
+        tabularWorkingDisplay.innerHTML += interpolation;
+j++;
+    }
+    answerText.innerHTML = `<p>${userInput.value}<sub>${inputBaseNumber.value}</sub>   =   <u>${final}<sub>10</sub></p>`;
+        reset();
+});
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        background: linear-gradient(to bottom, brown,#e5faab);
+        height: 100vh;
+        width: 100vw;
+    }
+    :root{
+--shadow :2px 3px 2px 0.1px rgba(0, 0, 0, 0.7);
+--shadow-check:0px 0px 3px 3px rgb(165, 42, 42,0.7);
+--button-font:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+    main{
+        
+        width: 90vw;
+        height: 95vh;
+        margin: 0 auto;
+        display: grid;
+        grid-template-rows:10vh 2vh auto 6vh ;
+        gap: 4vh;
+        justify-content: center;
+    }
+    .intro-texts{
+        color: #e5faab;
+        font-size: 23px;
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        width: 64vw;
+        margin: 0 auto;
+    }
+    
+    .task-list{
+        border: 5px double brown;
+        background-color: #e5faab;
+        width: 64vw;
+        overflow-y: scroll;
+    }
+    .add-task{
+        width: 64vw;
+        margin: 0 auto;
+        font-size: 17px;
+        height: 2.4pc;
+        border-radius: 30px;
+        border: 3px solid ;
+        background-color: brown;
+        color: white;
+        font-family: var(--button-font);
+        animation-name: add-btn-identify;
+        animation-duration: 4s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+    }
+    .clear{
+        font-size: 17px;
+        height: 2.4pc;
+        background-color: brown;
+        color: white;
+        font-family: var(--button-font);
+        animation-name: add-btn-identify;
+        animation-duration: 4s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+        width: 6pc;
+        border-radius: 2px;
+        border: 1px solid;
+        display: grid;
+        align-items: center;
+    }
+    .add-task:hover,.clear:hover{
+        cursor: pointer;
+        animation-name: none;
+    }
+.add-task:active{
+    border: none;
+}
+    @keyframes add-btn-identify {
+        0%{
+            box-shadow:inset 0 0 2px 2px rgba(255,255,255,0.8);
+        }
+        25%{
+            box-shadow:none;
+        }
+        50%{
+            box-shadow:inset 0 0 2px 2px rgba(255,255,255,0.8);
+        }
+        75%{
+            box-shadow:none;
+        }
+        100%{
+            box-shadow:inset 0 0 2px 2px rgba(255,255,255,0.8);
+        }
+    }
+    .task-list .task{
+     border: 2px solid gray;
+        width: 50vw;
+        height: 17vh;
+        display: grid;
+        gap: 1vh;
+        text-indent: 5vw;
+        margin-top: 1vh;
+    }
+    .task-number{
+        text-indent: 1vw;
+        font-style: oblique;
+        font-size: larger;
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-variant: small-caps;
+        text-shadow: 2.5px 0px 3px darkblue;
+        color: darkblue;
+        text-decoration: underline;
+    }
+    .task-list .task .buttons{
+        display: flex;
+        justify-content: space-evenly;
+    }
+    .task-list .task .buttons button:first-of-type{
+        background:linear-gradient(to top,orange 60%,orangered );
+        color: #ffffff;
+        border:1px solid;
+        box-shadow: var(--shadow);
+        font-family: var(--button-font);
+    }
+    .task-list .task .buttons button:nth-of-type(2){
+        background:linear-gradient(to top,red 60%,red );
+        color: white;
+        border:1px solid;
+        box-shadow: var(--shadow); 
+        font-family: var(--button-font);
+    }
+    .task-list .task .buttons button:nth-of-type(2):active{
+        box-shadow: none;
+    }
+    .task-list .task .buttons button:nth-of-type(2):hover{
+        text-decoration: underline;
+         cursor: var(--cursor);
+     }
+    .task-list .task .buttons button:nth-of-type(1):active{
+        box-shadow: none;
+    }
+    .task-list .task .buttons button:nth-of-type(1):hover{
+        text-decoration: underline;
+         cursor: var(--cursor);
+     }
+    
+    .task-list .task .buttons .task-done{
+        border-radius: 120px;
+        height: 2pc;
+        width: 2pc;
+        accent-color: brown;
+        background: none;
+        animation-name: btn-identify;
+        animation-duration: 2.5s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+        
+    }
+    .task-list .task .buttons .task-done:hover{
+        cursor: pointer;
+        box-shadow: var(--shadow-check);
+        animation-name: none;
+        transition: 0.7s;
+    }
+    @keyframes btn-identify {
+0%{
+    box-shadow:none;
+}
+25%{
+    box-shadow: var(--shadow-check);
+}
+50%{
+    box-shadow:none;
+}
+75%{
+    box-shadow: var(--shadow-check);
+}
+100%{
+    box-shadow:none;
+}
+110%{
+    box-shadow: var(--shadow-check);
+}
+
+    }
+dialog{
+
+    padding: 7vh;
+    background-color: #e5faab;
+    margin: 25vh auto;
+    border-color: rebeccapurple;
+    animation-name: dialog-anim;
+    animation-duration: 3s ;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    form{
+        display: grid;
+        gap: 2vh;
+    }
+    input{
+outline: none;
+height: 1.9pc;
+border-radius: 10px;
+padding-left: 2px;
+    }
+    input[type="text"]{
+        padding-left: 8px;
+    }
+    .dialog-buttons{
+        display: flex;
+        justify-content: space-evenly;
+    }
+    .dialog-buttons button{
+        height: 2pc;
+        width: 17vw;
+        font-size: 16px;
+        font-family: var(--button-font);
+        border: 2px solid;
+        color: white;
+        background-color: rebeccapurple;
+        cursor: pointer;
+    }
+    .dialog-buttons button:active{
+        border: none;
+    }
+}
+@keyframes dialog-anim {
+    0%{
+box-shadow: none;
+    }
+    25%{
+        box-shadow: 0 0 20px rgba(102, 51, 153);
+    }
+    50%{
+        box-shadow:none;
+    }
+    75%{
+        box-shadow: 0 0 20px rgba(102, 51, 153);
+    }
+    100%{
+        box-shadow:none;
+    }
+    110%{
+        box-shadow: 0 0 20px rgba(102, 51, 153);
+    }
+}
+
+    /*general btn styling*/
+    
+    
+</style>
+<body>
+    <main>
+        <span class="intro-texts"></span>
+        <button class="clear">Clear List</button>
+        <div class="task-list">
+        </div>
+        <button class="add-task">Add New Task</button>
+    </main>
+    <dialog>
+        <form method="dialog">
+            <input type="text" placeholder="Enter Task ..." name="" id="task-input">
+            <fieldset>
+                <legend class="task-number" >Add time (Optional)</legend>
+                <input type="text" placeholder="Hour:Minute AM/PM" name="" id="task-time">
+            </fieldset>
+            <div class="dialog-buttons"><button type="button" >Done</button><button type="submit" >Cancel</button></div>
+        </form>
+        
+        </dialog>
+    <script>
+        const add_new_task_btn = document.querySelector('.add-task');
+        const edit_task_btn = document.querySelector('.edit-task');
+        const delete_task_btn = document.querySelector('.delete-task');
+        const mark_task_done_btn = document.querySelectorAll('.task-list .task .task-done');
+        const submit_task_input = document.querySelector('.dialog-buttons button:nth-of-type(1)');
+        const task_input = document.querySelector('#task-input');
+        const task_time = document.querySelector('#task-time');
+        const dialog = document.querySelector('dialog');
+        const task_number = document.querySelector('.task-number');
+        const slides_display = document.querySelector('.intro-texts');
+       const tasks_list = document.querySelector('.task-list');
+
+               //-----program variables
+               const tasksArr = [];
+let i=0,slidesArr = ["Welcome to Dianson's ToDoList","Schedule your daily activities","Complete daily tasks","Be conSistent","ToDoList App"];
+        //-----End program variables
+
+
+        interval = setInterval(() =>{
+            if(i<slidesArr.length){
+            slides_display.textContent = slidesArr[i];
+            i++;
+            }
+            if(i == slidesArr.length-1 || i == slidesArr.length){
+                slides_display.textContent = slidesArr[i]; 
+                i++;
+            }
+            if(i > slidesArr.length){
+                let date = new Date();
+                let day = date.getDay();
+                let month = date.getMonth();
+                let year = date.getFullYear();
+                const monthsArr = ["January","February","March","April","May","June","July","August","September","October","November","December"]; 
+                slides_display.textContent = `Activities for ${monthsArr[month]} - ${day-1} - ${year}`;
+                clearInterval(interval);
+            }
+
+        },2000);
+
+       add_new_task_btn.addEventListener("click", () => {
+        dialog.showModal();
+                });
+                
+        submit_task_input.addEventListener("click", ({task,time}) => {
+            if(submit_task_input.textContent == "Done"){
+                const taskObj = {
+                    task:task_input.value,
+                   time:task_time.value
+                }
+tasksArr.push(taskObj);
+let n=tasksArr.length;
+if(task_time.value == ""){
+    task_time.value = "Not set";
+}
+        tasks_list.innerHTML += `<fieldset class="task">
+           <legend class="task-number">Task ${n}</legend>
+            <span><strong>Task:</strong> ${taskObj.task}</span>
+            <span><strong>Time:</strong> ${taskObj.time}</span>
+            <div class="buttons"><button type="button" class="edit-task">Edit 🖊</button><button type="button" class="delete-task">Delete ✖</button><input type="checkbox" class="task-done"></div>
+        </fieldset>`;
+        reset();
+dialog.close();
+    }
+    });
+
+    function reset(){
+        task_input.value = "";
+        task_time.value = "";
+    }
+
+    </script>
+</body>
+</html>
